@@ -1,31 +1,35 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 
 public class boton : MonoBehaviour
 {
+    public TMP_Dropdown dropdown;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
+    void Start()
+    {
+        List<string> idiomas = new List<string> { "catalan", "english", "castellano" };
 
-    public void cambiarIdioma()
+        dropdown.ClearOptions();
+        dropdown.AddOptions(idiomas);
+        
+    }
+    public void cambiarIdioma(int value)
     {
         var enLoc = LocalizationSettings.AvailableLocales.GetLocale("en");
         var esLoc = LocalizationSettings.AvailableLocales.GetLocale("es");
         var caLoc = LocalizationSettings.AvailableLocales.GetLocale("ca");
-
-        if (LocalizationSettings.SelectedLocale == enLoc)
+        switch (value)
         {
-            LocalizationSettings.SelectedLocale = esLoc;
+            case 0: LocalizationSettings.SelectedLocale = caLoc;
+                break;
+            case 1: LocalizationSettings.SelectedLocale = enLoc;
+                break;
+            case 2: LocalizationSettings.SelectedLocale = esLoc;
+                break;
         }
-        if(LocalizationSettings.SelectedLocale == esLoc)
-        {
-            LocalizationSettings.SelectedLocale = caLoc;
-        }
-        if(LocalizationSettings.SelectedLocale == caLoc)
-        {
-            LocalizationSettings.SelectedLocale = caLoc;
-        }
-
-        Debug.Log("hola");
     }
 }
